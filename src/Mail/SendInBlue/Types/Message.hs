@@ -5,7 +5,7 @@
 {-# LANGUAGE RecordWildCards   #-}
 {-# LANGUAGE TemplateHaskell   #-}
 
-module Network.SendInBlue.Types.Message
+module Mail.SendInBlue.Types.Message
     ( -- * Message type, constructor and lenses
       EmailMessage
     , emailMessage
@@ -57,24 +57,25 @@ module Network.SendInBlue.Types.Message
     , URI
     ) where
 
-import           Control.Monad                       (mzero)
-import           Data.Aeson                   hiding (Error, Success)
-import           Data.ByteString                     (ByteString)
-import qualified Data.ByteString.Base64           as Base64
-import           Data.CaseInsensitive                (mk)
-import qualified Data.HashMap.Strict              as Map
-import           Data.List.NonEmpty                  (NonEmpty(..))
-import qualified Data.List.NonEmpty               as NonEmpty
-import           Data.Monoid                         ((<>))
-import           Data.Text                           (Text, empty, pack)
-import           Data.Text.Encoding                  (decodeUtf8)
-import qualified Data.Vector                      as Vector
+import           Control.Exception.Safe           (MonadThrow, throw)
+import           Control.Monad                    (mzero)
+import           Data.Aeson                hiding (Error, Success)
+import           Data.ByteString                  (ByteString)
+import qualified Data.ByteString.Base64        as Base64
+import           Data.CaseInsensitive             (mk)
+import qualified Data.HashMap.Strict           as Map
+import           Data.List.NonEmpty               (NonEmpty(..))
+import qualified Data.List.NonEmpty            as NonEmpty
+import           Data.Monoid                      ((<>))
+import           Data.Text                        (Text, empty, pack)
+import           Data.Text.Encoding               (decodeUtf8)
+import qualified Data.Vector                   as Vector
 import           GHC.Generics
-import           Lens.Micro.TH                       (makeLenses)
-import           Network.SendInBlue.Types.App
-import           Network.URI                         (URI, uriToString)
-import           Text.Email.Validate                 (EmailAddress)
-import qualified Text.Email.Validate              as Email
+import           Lens.Micro.TH                    (makeLenses)
+import           Mail.SendInBlue.Types.App
+import           Network.URI                      (URI, uriToString)
+import           Text.Email.Validate              (EmailAddress)
+import qualified Text.Email.Validate           as Email
 
 
 --------------------------------------------------------------------------------
@@ -215,16 +216,16 @@ data Header = Header
 
 instance ToJSON Header
 
--- | Constructor for 'Header'. It will return an 'Error' if the header
--- name is one of the headers reserved by SendInBlue.
+-- | Constructor for 'Header'. It will throw an exception if the
+-- header name is one of the headers reserved by SendInBlue.
 --
 -- Future versions may to further validations, e.g. verifying that it
 -- is valid according to RFC 5322.
-header :: Text -> Text -> Either Error Header
+header :: MonadThrow m => Text -> Text -> m Header
 header name value =
   if mk name `elem` ["x-mailin-custom", "x-mailin-ip", "x-mailin-tag"]
-      then Left . Error $ "Use of reserved header '" <> name <> "'"
-      else Right $ Header name value
+      then throw . Error $ "Use of reserved header '" <> name <> "'"
+      else return        $ Header name value
 
 -- | This is the 'HtmlBody' of an 'EmailMessage'.
 newtype HtmlBody = HtmlBody Text deriving Generic

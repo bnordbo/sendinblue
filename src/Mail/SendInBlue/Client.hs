@@ -1,19 +1,19 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Network.SendInBlue.Client
+module Mail.SendInBlue.Client
     ( send
     ) where
 
-import Data.ByteString.Conversion       (toByteString')
-import Data.CaseInsensitive             (mk)
-import Data.Text                        (Text)
+import Data.ByteString.Conversion    (toByteString')
+import Data.CaseInsensitive          (mk)
+import Data.Text                     (Text)
 import Control.Exception.Safe
 import Control.Monad.Reader
 import Lens.Micro
 import Network.HTTP.Simple
-import Network.SendInBlue.Types.App
-import Network.SendInBlue.Types.Message
-import Network.URI                      (uriToString)
+import Mail.SendInBlue.Types.App
+import Mail.SendInBlue.Types.Message
+import Network.URI                   (uriToString)
 
 
 -- | The 'send' function sends an email message and returns the

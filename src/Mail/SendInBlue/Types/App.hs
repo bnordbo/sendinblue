@@ -4,7 +4,7 @@
 {-# LANGUAGE QuasiQuotes                #-}
 {-# LANGUAGE TemplateHaskell            #-}
 
-module Network.SendInBlue.Types.App
+module Mail.SendInBlue.Types.App
     ( -- * API key for v2 authentication
       ApiKey (..)
       -- * Client type

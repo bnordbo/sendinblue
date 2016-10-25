@@ -14,10 +14,10 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Network.SendInBlue
-  other-modules:       Network.SendInBlue.Client
-                     , Network.SendInBlue.Types.App
-                     , Network.SendInBlue.Types.Message
+  exposed-modules:     Mail.SendInBlue
+  other-modules:       Mail.SendInBlue.Client
+                     , Mail.SendInBlue.Types.App
+                     , Mail.SendInBlue.Types.Message
   build-depends:       aeson
                      , base >= 4.7 && < 5
                      , base64-bytestring
