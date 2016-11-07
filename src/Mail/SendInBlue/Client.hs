@@ -11,7 +11,7 @@ import Control.Exception.Safe
 import Control.Monad.Reader
 import Lens.Micro
 import Network.HTTP.Simple
-import Mail.SendInBlue.Types.App
+import Mail.SendInBlue.Types.Client
 import Mail.SendInBlue.Types.Message
 import Network.URI                   (uriToString)
 

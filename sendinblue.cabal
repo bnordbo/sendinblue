@@ -1,6 +1,6 @@
 name:                sendinblue
 version:             0.1.0.0
-synopsis:            API for SendInBlue campaign platform.
+synopsis:            Client library for SendInBlue campaign platform.
 description:         Please see README.md
 homepage:            https://github.com/bnordbo/sendinblue#readme
 license:             Apache
@@ -16,7 +16,7 @@ library
   hs-source-dirs:      src
   exposed-modules:     Mail.SendInBlue
   other-modules:       Mail.SendInBlue.Client
-                     , Mail.SendInBlue.Types.App
+                     , Mail.SendInBlue.Types.Client
                      , Mail.SendInBlue.Types.Message
   build-depends:       aeson
                      , base >= 4.7 && < 5

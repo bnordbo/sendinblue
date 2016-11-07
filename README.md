@@ -25,3 +25,6 @@ minimal key adr =
 ```
 
 For more advanced usage, see the documentation for `EmailMessage`.
+Additional attributes are set using the lenses exported from the
+`Mail.SendInBlue.Types.Message` module. `Mail.SendInBlue` re-exports
+these.

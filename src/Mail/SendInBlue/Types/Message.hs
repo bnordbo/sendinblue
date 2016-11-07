@@ -72,7 +72,7 @@ import           Data.Text.Encoding               (decodeUtf8)
 import qualified Data.Vector                   as Vector
 import           GHC.Generics
 import           Lens.Micro.TH                    (makeLenses)
-import           Mail.SendInBlue.Types.App
+import           Mail.SendInBlue.Types.Client
 import           Network.URI                      (URI, uriToString)
 import           Text.Email.Validate              (EmailAddress)
 import qualified Text.Email.Validate           as Email
